@@ -1,302 +1,432 @@
-import 'package:doc_appointment/util/theme/appbar_style.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../common/styles/app_colors.dart';
+import '../common/styles/app_text_styles.dart';
+import '../common/styles/appbar_style.dart';
+import '../feature/home/controllers/home_controller.dart';
+import 'login_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 120,
+        backgroundColor: Colors.white,
+        elevation: 0,
         title: Column(
           children: [
             Row(
               children: [
-                const Icon(Icons.account_circle_outlined),
-                const SizedBox(width: 8),
-                Column(
-                  children: [
-                    const Text('Hello', style: AppBarStyles.bodyLargeDark),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Đăng ký / Đăng nhập',
-                      style: AppBarStyles.bodyMediumDark,
-                    ),
-                  ],
+                InkWell(
+                  onTap: () {
+                    // Thêm chức năng chuyển đến trang đăng nhập khi nhấn vào user icon
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const LoginScreen()),
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.account_circle_outlined, 
+                        color: AppColors.primary, 
+                        size: 28,
+                      ),
+                      const SizedBox(width: 8),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Xin chào', style: AppBarStyles.bodyLargeDark),
+                          const SizedBox(height: 4),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const LoginScreen()),
+                              );
+                            },
+                            child: Text(
+                              'Đăng ký / Đăng nhập',
+                              style: AppBarStyles.bodyMediumDark,
+                              // Xóa thuộc tính gạch chân
+                              // .copyWith(decoration: TextDecoration.underline),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
                 const Spacer(),
                 IconButton(
-                  icon: const Icon(Icons.notifications_outlined),
+                  icon: const Icon(
+                    Icons.notifications_outlined, 
+                    color: AppColors.primary,
+                    size: 28,
+                  ),
                   onPressed: () {
-                    // Handle notification button press
+                    // Xử lý thông báo
                   },
                 ),
               ],
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 12),
             TextField(
               style: AppBarStyles.bodySmallDark,
               decoration: InputDecoration(
                 hintText: 'Tên bác sĩ, triệu chứng bệnh, chuyên khoa...',
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: Colors.blue),
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(color: AppColors.primary),
                 ),
-                prefixIcon: const Icon(Icons.search), // Giảm chiều cao
+                prefixIcon: const Icon(Icons.search, color: AppColors.primary),
+                contentPadding: const EdgeInsets.symmetric(vertical: 12.0),
+                fillColor: AppColors.surface,
+                filled: true,
               ),
             ),
           ],
         ),
       ),
       body: ListView(
+        padding: const EdgeInsets.all(16.0),
         children: [
-          Column(
-            children: [
-              Column(
-                children: [
-                  //ROW 1
-                  Row(
-                    children: [
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: Image.asset(
-                              'assets/icons/doctor.png',
-                              width: 70,
-                              height: 70,
-                            ),
-                          ),
-                          const Text(
-                            'Đặt khám bác sĩ',
-                            style: TextStyle(fontSize: 14, color: Colors.black),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: Image.asset(
-                              'assets/icons/doctor2.png',
-                              width: 70,
-                              height: 70,
-                            ),
-                          ),
-                          const Text(
-                            'Đặt khám phòng khám',
-                            style: TextStyle(fontSize: 14, color: Colors.black),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: Image.asset(
-                              'assets/icons/hospital.png',
-                              width: 70,
-                              height: 70,
-                            ),
-                          ),
-                          const Text(
-                            'Đặt khám bệnh viện',
-                            style: TextStyle(fontSize: 14, color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  //ROW 2
-                  Row(
-                    children: [
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: Image.asset(
-                              'assets/icons/chat.png',
-                              width: 70,
-                              height: 70,
-                            ),
-                          ),
-                          const Text(
-                            'Chat với bác sĩ',
-                            style: TextStyle(fontSize: 14, color: Colors.black),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: Image.asset(
-                              'assets/icons/video-call.png',
-                              width: 70,
-                              height: 70,
-                            ),
-                          ),
-                          const Text(
-                            'Gọi video với bác sĩ',
-                            style: TextStyle(fontSize: 14, color: Colors.black),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: Image.asset(
-                              'assets/icons/result.png',
-                              width: 70,
-                              height: 70,
-                            ),
-                          ),
-                          const Text(
-                            'Kết quả khám',
-                            maxLines: 2,
-                            style: TextStyle(fontSize: 14, color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  //ROW 3
-                  Row(
-                    children: [
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: Image.asset(
-                              'assets/icons/shield.png',
-                              width: 70,
-                              height: 70,
-                            ),
-                          ),
-                          const Text(
-                            'Đặt lịch tiêm chủng',
-                            style: TextStyle(fontSize: 14, color: Colors.black),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: Image.asset(
-                              'assets/icons/microscope.png',
-                              width: 70,
-                              height: 70,
-                            ),
-                          ),
-                          const Text(
-                            'Đặt lịch xét nghiệm',
-                            style: TextStyle(fontSize: 14, color: Colors.black),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: Image.asset(
-                              'assets/icons/community.png',
-                              width: 70,
-                              height: 70,
-                            ),
-                          ),
-                          const Text(
-                            'Cộng đồng',
-                            style: TextStyle(fontSize: 14, color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
+          // Services Section
+          Container(
+            decoration: BoxDecoration(
+              color: AppColors.cardBackground,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 3,
+                  offset: const Offset(0, 1),
+                ),
+              ],
+            ),
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Dịch vụ',
+                  style: AppTextStyle.heading2,
+                ),
+                const SizedBox(height: 20),
+                // ROW 1
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _buildServiceItem(
+                      'Đặt khám\nbác sĩ',
+                      Icons.medical_services,
+                      () {},
+                      size,
+                    ),
+                    _buildServiceItem(
+                      'Khám theo\nchuyên khoa',
+                      Icons.medication,
+                      () {},
+                      size,
+                    ),
+                    _buildServiceItem(
+                      'Chat với\nbác sĩ',
+                      Icons.chat_bubble_outline,
+                      () {},
+                      size,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                // ROW 2
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _buildServiceItem(
+                      'Gọi video\nvới bác sĩ',
+                      Icons.videocam_outlined,
+                      () {},
+                      size,
+                    ),
+                    _buildServiceItem(
+                      'Kết quả\nkhám',
+                      Icons.description_outlined,
+                      () {},
+                      size,
+                    ),
+                    _buildServiceItem(
+                      'Đặt lịch\ntiêm chủng',
+                      Icons.shield_outlined,
+                      () {},
+                      size,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                // ROW 3
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _buildServiceItem(
+                      'Đặt lịch\nxét nghiệm',
+                      Icons.science_outlined,
+                      () {},
+                      size,
+                    ),
+                    _buildServiceItem(
+                      'Cộng đồng',
+                      Icons.people_outline,
+                      () {},
+                      size,
+                    ),
+                    const SizedBox(width: 90), // Empty space for balance
+                  ],
+                ),
+              ],
+            ),
           ),
-          // Bác sĩ
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Row(
+          
+          const SizedBox(height: 24),
+          
+          // Doctors Section
+          Container(
+            decoration: BoxDecoration(
+              color: AppColors.cardBackground,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 3,
+                  offset: const Offset(0, 1),
+                ),
+              ],
+            ),
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
                   children: [
                     const Text(
                       'Bác sĩ',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: AppTextStyle.heading2,
                     ),
                     const Spacer(),
-                    const Icon(Icons.arrow_forward_ios),
+                    TextButton.icon(
+                      onPressed: () {},
+                      icon: const Text(
+                        'Xem tất cả',
+                        style: TextStyle(color: AppColors.primary, fontSize: 15),
+                      ),
+                      label: const Icon(
+                        Icons.arrow_forward_ios,
+                        size: 16,
+                        color: AppColors.primary,
+                      ),
+                    ),
                   ],
                 ),
-              ),
-              SizedBox(
-                height: 120, // Đặt chiều cao cho danh sách ngang
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 10, // Số lượng mục trong danh sách
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: Image.asset(
-                              'assets/icons/doctor.png',
-                              width: 70,
-                              height: 70,
+                const SizedBox(height: 12),
+                SizedBox(
+                  height: 160,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 10,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        width: 120,
+                        margin: const EdgeInsets.only(right: 16),
+                        child: Column(
+                          children: [
+                            const CircleAvatar(
+                              radius: 50,
+                              backgroundColor: AppColors.primaryLight,
+                              child: Icon(
+                                Icons.person,
+                                size: 55,
+                                color: AppColors.primary,
+                              ),
                             ),
-                          ),
-                          Text(
-                            'Bác sĩ A',
-                            style: TextStyle(fontSize: 14, color: Colors.black),
-                          ),
-                        ],
-                      ),
+                            const SizedBox(height: 10),
+                            Text(
+                              'Bác sĩ ${index + 1}',
+                              style: AppTextStyle.bodyMedium.copyWith(
+                                fontWeight: FontWeight.w600
+                              ),
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          
+          const SizedBox(height: 24),
+          
+          // Specialties Section
+          Container(
+            decoration: BoxDecoration(
+              color: AppColors.cardBackground,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 3,
+                  offset: const Offset(0, 1),
+                ),
+              ],
+            ),
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const Text(
+                      'Chuyên khoa',
+                      style: AppTextStyle.heading2,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    childAspectRatio: 0.9,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 16,
+                  ),
+                  itemCount: 6,
+                  itemBuilder: (context, index) {
+                    final specialties = [
+                      'Tim mạch',
+                      'Nhi khoa',
+                      'Da liễu',
+                      'Thần kinh',
+                      'Tiêu hóa',
+                      'Cơ xương khớp',
+                    ];
+                    
+                    final icons = [
+                      Icons.favorite_border,
+                      Icons.child_care,
+                      Icons.face,
+                      Icons.psychology,
+                      Icons.medical_services_outlined,
+                      Icons.accessibility_new,
+                    ];
+                    
+                    return _buildSpecialtyItem(
+                      specialties[index],
+                      icons[index],
+                      () {},
                     );
                   },
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Trang chủ',
+    );
+  }
+
+  Widget _buildServiceItem(
+    String title, 
+    IconData iconData, 
+    VoidCallback onTap,
+    Size size,
+  ) {
+    final itemWidth = (size.width - 100) / 3;
+    final iconSize = itemWidth * 0.5;
+    
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: SizedBox(
+        width: itemWidth,
+        child: Column(
+          children: [
+            Container(
+              width: iconSize + 20,
+              height: iconSize + 20,
+              decoration: BoxDecoration(
+                color: AppColors.primaryLight.withOpacity(0.2),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                iconData,
+                size: iconSize,
+                color: AppColors.primary,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Container(
+              height: 40, // Thiết lập chiều cao cố định cho text
+              alignment: Alignment.center,
+              child: Text(
+                title,
+                style: AppTextStyle.bodySmall,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+  
+  Widget _buildSpecialtyItem(
+    String name,
+    IconData icon,
+    VoidCallback onTap,
+  ) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 70,
+            height: 70,
+            decoration: BoxDecoration(
+              color: AppColors.primaryLight.withOpacity(0.2),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              icon,
+              size: 40,
+              color: AppColors.primary,
+            ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Tìm kiếm',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Tài khoản',
+          const SizedBox(height: 8),
+          Text(
+            name,
+            style: AppTextStyle.bodyMedium.copyWith(
+              fontWeight: FontWeight.w500
+            ),
+            textAlign: TextAlign.center,
           ),
         ],
-        selectedItemColor: Colors.blue, // Màu khi được chọn
-        unselectedItemColor: Colors.grey, // Màu khi không được chọn
-        backgroundColor: Colors.white, // Màu nền
       ),
     );
   }
